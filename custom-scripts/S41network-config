@@ -7,9 +7,9 @@ case "$1" in
   start)
 	printf "Configuring host communication."
 	
-	/sbin/ifconfig eth0 192.168.1.10 up
-	/sbin/route add -host <IP-DO-HOST> dev eth0
-	/sbin/route add default gw <IP-DO-HOST>
+	/sbin/ifconfig eth0 172.29.240.10 netmask 255.255.240.0 up
+	/sbin/route add -host 172.29.240.200 dev eth0
+	/sbin/route add default gw 172.29.240.200
 	[ $? = 0 ] && echo "OK" || echo "FAIL"
 	;;
   stop)
@@ -28,3 +28,4 @@ case "$1" in
 esac
 
 exit $?
+

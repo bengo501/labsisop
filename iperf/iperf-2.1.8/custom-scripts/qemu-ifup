@@ -1,0 +1,15 @@
+#!/bin/sh
+set -x
+
+switch=br0
+
+if [ -n "$1" ]; then
+    ip tuntap add $1 mode tap user `whoami`  # Cria a interface tap
+    ip link set $1 up                        # Ativa a interface tap
+    sysctl -w net.ipv4.ip_forward=1          # Permite o redirecionamento de pacotes
+    route add -host 192.168.1.10 dev $1      # Roteia pacotes para o Guest
+    exit 0
+else
+    echo "Error: no interface specified"
+    exit 1
+fi

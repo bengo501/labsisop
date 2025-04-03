@@ -1,0 +1,23 @@
+#!/bin/sh
+
+case "$1" in
+    start)
+        echo "Iniciando o servidor LinuxStatus..."
+        /usr/bin/python3 /usr/bin/linuxstatus.py &  # <- o & aqui é importante!
+        ;;
+    stop)
+        echo "Parando o servidor LinuxStatus..."
+        killall python3
+        ;;
+    restart)
+        $0 stop
+        $0 start
+        ;;
+    *)
+        echo "Uso: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
+exit 0
+
